@@ -1,43 +1,46 @@
-# Vida MTG
+# MTG Life
 
-Contador de vida para **Magic: The Gathering (Commander)** feito para rodar num **iPad antigo com iOS 8** (testado num iPad 3, A5X, iOS 8.4.1).
+Life counter for **Magic: The Gathering (Commander)**, made to run on an **old iPad with iOS 8** (tested on an iPad 3, A5X, iOS 8.4.1).
 
-App nativo em Objective-C/UIKit, sem storyboard, compilado para **armv7** com o toolchain do Xcode 13.4.1 rodando no macOS atual.
+Native Objective-C/UIKit app, no storyboards, built for **armv7** with the Xcode 13.4.1 toolchain running on current macOS.
 
-## Funcionalidades
+## Install
 
-- 2 a 6 jogadores, com painéis virados para cada lado da mesa
-- Toque à esquerda/direita para −1/+1; segurar repete (e acelera para 5 em 5)
-- Indicador de variação recente (+3, −2…)
-- Veneno e dano de comandante por oponente (o dano de comandante também desconta da vida)
-- Jogador marcado como "ELIMINADO" com vida ≤ 0, veneno ≥ 10 ou 21 de um comandante
-- Renomear jogadores, sortear quem começa, vida inicial 20/25/30/40
-- Partida salva automaticamente; a tela não apaga durante o jogo
+Add the Cydia repository **https://douugr.github.io/repo/** (Cydia or Melder → Sources → Edit → Add) and install **MTG Life**.
 
-## Requisitos
+## Features
 
-- iPad com iOS 8 e jailbreak, com **AppSync Unified** instalado (o app é assinado ad-hoc)
-- Mac com o **Xcode 13.4.1** extraído (só o toolchain é usado; não precisa abrir o app). Versões mais novas do Xcode não geram armv7.
-- `ldid` (`brew install ldid`) — opcional, mas recomendado
-- `ideviceinstaller` para instalar pelo cabo (o da [Legacy iOS Kit](https://github.com/LukeZGD/Legacy-iOS-Kit) serve)
+- 2 to 6 players, with panels facing each side of the table
+- Tap left/right for −1/+1; hold to repeat (speeds up to steps of 5)
+- Recent change indicator (+3, −2…)
+- Poison and commander damage per opponent (commander damage is also taken from life)
+- Player marked as "ELIMINATED" at life ≤ 0, poison ≥ 10 or 21 from a single commander
+- Rename players, pick who goes first, starting life 20/25/30/40
+- The game is saved automatically and the screen stays on while playing
 
-## Compilar e instalar
+## Requirements (to build)
+
+- Mac with **Xcode 13.4.1** extracted (only the toolchain is used). Newer Xcode versions can't build armv7.
+- `ldid` (`brew install ldid`)
+- To install without Cydia: a jailbroken iPad with **AppSync Unified** and `ideviceinstaller` (the one bundled with [Legacy iOS Kit](https://github.com/LukeZGD/Legacy-iOS-Kit) works)
+
+## Build and install
 
 ```bash
-# Por padrão o script procura ../Xcode-13.4.1.app; ou aponte com X13:
-export X13=/caminho/para/Xcode-13.4.1.app/Contents/Developer
+# By default the script looks for ../Xcode-13.4.1.app; or point to it with X13:
+export X13=/path/to/Xcode-13.4.1.app/Contents/Developer
 
-./build.sh            # gera LifeCounter.ipa
-./build.sh install    # gera e instala no iPad conectado
+./build.sh            # builds LifeCounter.ipa
+./build.sh install    # builds and installs on the connected iPad
 ```
 
-O script compila com `-arch armv7 -miphoneos-version-min=8.0` e `-Wunguarded-availability`, então o compilador avisa se alguma API mais nova que o iOS 8 for usada.
+The script builds with `-arch armv7 -miphoneos-version-min=8.0` and `-Wunguarded-availability`, so the compiler warns if any API newer than iOS 8 is used.
 
-## Estrutura
+## Structure
 
 ```
-src/LCModel.*             modelo (jogadores, partida, persistência)
-src/LCPlayerPanelView.*   painel de cada jogador (gestos, contadores)
-src/LCGameViewController.* layout da mesa e menu
-src/main.m                AppDelegate
+src/LCModel.*              model (players, game, persistence)
+src/LCPlayerPanelView.*    each player's panel (gestures, counters)
+src/LCGameViewController.* table layout and menu
+src/main.m                 AppDelegate
 ```

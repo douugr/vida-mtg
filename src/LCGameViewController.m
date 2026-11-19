@@ -139,7 +139,7 @@
 }
 
 - (void)panelRequestsRename:(LCPlayerPanelView *)panel {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Nome do jogador"
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Player name"
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:^(UITextField *field) {
@@ -148,8 +148,8 @@
         field.autocapitalizationType = UITextAutocapitalizationTypeWords;
     }];
     __weak UIAlertController *weakAlert = alert;
-    [alert addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Salvar" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         NSString *name = [weakAlert.textFields.firstObject.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         if (name.length) {
             panel.player.name = name;
@@ -175,24 +175,24 @@
 }
 
 - (void)menuTapped {
-    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:@"Contador de vida"
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:@"Life counter"
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
-    [sheet addAction:[UIAlertAction actionWithTitle:@"Sortear quem começa" style:UIAlertActionStyleDefault handler:^(UIAlertAction *a) {
+    [sheet addAction:[UIAlertAction actionWithTitle:@"Pick who goes first" style:UIAlertActionStyleDefault handler:^(UIAlertAction *a) {
         [self pickStarter];
     }]];
-    [sheet addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"Jogadores: %lu", (unsigned long)self.game.players.count]
+    [sheet addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"Players: %lu", (unsigned long)self.game.players.count]
                                               style:UIAlertActionStyleDefault handler:^(UIAlertAction *a) {
         [self choosePlayerCount];
     }]];
-    [sheet addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"Vida inicial: %ld", (long)self.game.startingLife]
+    [sheet addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"Starting life: %ld", (long)self.game.startingLife]
                                               style:UIAlertActionStyleDefault handler:^(UIAlertAction *a) {
         [self chooseStartingLife];
     }]];
-    [sheet addAction:[UIAlertAction actionWithTitle:@"Reiniciar partida" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *a) {
+    [sheet addAction:[UIAlertAction actionWithTitle:@"New game" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *a) {
         [self confirmReset];
     }]];
-    [sheet addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil]];
+    [sheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [self presentSheet:sheet];
 }
 
@@ -203,25 +203,25 @@
 }
 
 - (void)choosePlayerCount {
-    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:@"Número de jogadores"
-                                                                   message:@"Começa uma nova partida (os nomes são mantidos)."
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:@"Number of players"
+                                                                   message:@"Starts a new game (names are kept)."
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     for (NSInteger k = 2; k <= LC_MAX_PLAYERS; k++) {
         NSString *title = (k == (NSInteger)self.game.players.count)
-            ? [NSString stringWithFormat:@"%ld jogadores ✓", (long)k]
-            : [NSString stringWithFormat:@"%ld jogadores", (long)k];
+            ? [NSString stringWithFormat:@"%ld players ✓", (long)k]
+            : [NSString stringWithFormat:@"%ld players", (long)k];
         [sheet addAction:[UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *a) {
             [self.game newGameWithPlayerCount:k];
             [self rebuildPanels];
         }]];
     }
-    [sheet addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil]];
+    [sheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [self presentSheet:sheet];
 }
 
 - (void)chooseStartingLife {
-    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:@"Vida inicial"
-                                                                   message:@"Começa uma nova partida."
+    UIAlertController *sheet = [UIAlertController alertControllerWithTitle:@"Starting life"
+                                                                   message:@"Starts a new game."
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     NSArray *options = @[@20, @25, @30, @40];
     for (NSNumber *opt in options) {
@@ -235,16 +235,16 @@
             [self rebuildPanels];
         }]];
     }
-    [sheet addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil]];
+    [sheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [self presentSheet:sheet];
 }
 
 - (void)confirmReset {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Reiniciar partida?"
-                                                                   message:@"Vida, veneno e dano de comandante voltam ao início."
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Start a new game?"
+                                                                   message:@"Life, poison and commander damage go back to the start."
                                                             preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Reiniciar" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *a) {
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Restart" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *a) {
         [self.game resetKeepingNames];
         [self rebuildPanels];
     }]];

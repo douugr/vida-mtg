@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>pt_BR</string>
+	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Vida MTG</string>
+	<string>MTG Life</string>
 	<key>CFBundleExecutable</key>
 	<string>LifeCounter</string>
 	<key>CFBundleIdentifier</key>

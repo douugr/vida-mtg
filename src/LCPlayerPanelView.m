@@ -104,7 +104,7 @@ enum {
         [_contentView addSubview:_countersButton];
 
         _eliminatedLabel = [self makeLabel];
-        _eliminatedLabel.text = @"ELIMINADO";
+        _eliminatedLabel.text = @"ELIMINATED";
         _eliminatedLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
         _eliminatedLabel.userInteractionEnabled = NO;
         _eliminatedLabel.hidden = YES;
@@ -199,9 +199,9 @@ enum {
     }
     NSString *title;
     if (self.player.poison == 0 && maxCmd == 0) {
-        title = @"Veneno / Comandante";
+        title = @"Poison / Commander";
     } else {
-        title = [NSString stringWithFormat:@"Veneno %ld  ·  Cmd %ld", (long)self.player.poison, (long)maxCmd];
+        title = [NSString stringWithFormat:@"Poison %ld  ·  Cmd %ld", (long)self.player.poison, (long)maxCmd];
     }
     [self.countersButton setTitle:title forState:UIControlStateNormal];
 
@@ -343,19 +343,19 @@ enum {
     [self.contentView addSubview:ov];
 
     self.overlayTitle = [self makeLabel];
-    self.overlayTitle.text = [NSString stringWithFormat:@"Contadores de %@", self.player.name];
+    self.overlayTitle.text = [NSString stringWithFormat:@"%@'s counters", self.player.name];
     [ov addSubview:self.overlayTitle];
 
-    [self addRowWithKey:0 title:@"Veneno" color:nil];
+    [self addRowWithKey:0 title:@"Poison" color:nil];
     for (NSNumber *idx in [self.delegate opponentIndexesForPanel:self]) {
         LCPlayer *opp = [self.delegate playerAtIndex:idx.integerValue];
         [self addRowWithKey:1 + idx.integerValue
-                      title:[NSString stringWithFormat:@"Cmd de %@", opp.name]
+                      title:[NSString stringWithFormat:@"Cmd from %@", opp.name]
                       color:LCPlayerColor(opp.colorIndex)];
     }
 
     self.overlayClose = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.overlayClose setTitle:@"Fechar" forState:UIControlStateNormal];
+    [self.overlayClose setTitle:@"Close" forState:UIControlStateNormal];
     [self.overlayClose setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.overlayClose.backgroundColor = LCPlayerColor(self.player.colorIndex);
     self.overlayClose.layer.cornerRadius = 8;
@@ -463,7 +463,7 @@ enum {
     [flash addAnimation:anim forKey:@"flash"];
 
     UILabel *badge = [self makeLabel];
-    badge.text = @"COMEÇA!";
+    badge.text = @"GOES FIRST!";
     badge.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6];
     badge.layer.cornerRadius = 10;
     badge.clipsToBounds = YES;

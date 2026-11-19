@@ -94,7 +94,7 @@ static NSString * const kLCStateKey = @"LCGameState";
     for (NSInteger i = 0; i < count; i++) {
         LCPlayer *p = [[LCPlayer alloc] init];
         NSString *oldName = (i < (NSInteger)old.count) ? [old[i] name] : nil;
-        p.name = oldName.length ? oldName : [NSString stringWithFormat:@"Jogador %ld", (long)(i + 1)];
+        p.name = oldName.length ? oldName : [NSString stringWithFormat:@"Player %ld", (long)(i + 1)];
         p.colorIndex = i;
         p.life = self.startingLife;
         [players addObject:p];
