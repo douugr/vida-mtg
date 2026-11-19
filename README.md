@@ -44,3 +44,7 @@ src/LCPlayerPanelView.*    each player's panel (gestures, counters)
 src/LCGameViewController.* table layout and menu
 src/main.m                 AppDelegate
 ```
+
+## License
+
+MIT, see [LICENSE](LICENSE). The icon is original, made for the project.
